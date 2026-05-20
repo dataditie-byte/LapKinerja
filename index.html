@@ -1,0 +1,369 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <title>SI-HADIR Penyuluh | Laporan Harian Kinerja</title>
+  <meta name="description" content="Sistem Informasi Harian Kinerja Penyuluh Narkoba Ahli Madya - Tri Tjahyono" />
+  <meta name="theme-color" content="#0f766e" />
+
+  <style>
+    :root {
+      --primary: #0f766e;
+      --primary-dark: #064e3b;
+      --bg: #eef2f7;
+      --card: #ffffff;
+      --text: #1f2937;
+      --muted: #64748b;
+      --border: #d1d5db;
+      --shadow: 0 10px 30px rgba(15, 23, 42, 0.12);
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      font-family: Arial, Helvetica, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+    }
+
+    .app-shell {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .topbar {
+      background: linear-gradient(135deg, var(--primary-dark), var(--primary));
+      color: white;
+      padding: 18px 22px;
+      box-shadow: var(--shadow);
+      position: sticky;
+      top: 0;
+      z-index: 10;
+    }
+
+    .topbar-inner {
+      max-width: 1400px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+
+    .logo {
+      width: 46px;
+      height: 46px;
+      border-radius: 14px;
+      background: rgba(255,255,255,0.16);
+      display: grid;
+      place-items: center;
+      font-weight: 800;
+      letter-spacing: 0.5px;
+      border: 1px solid rgba(255,255,255,0.3);
+    }
+
+    .brand-title h1 {
+      margin: 0;
+      font-size: 20px;
+      line-height: 1.2;
+    }
+
+    .brand-title p {
+      margin: 4px 0 0;
+      font-size: 13px;
+      opacity: 0.9;
+    }
+
+    .actions {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+
+    .btn {
+      border: none;
+      border-radius: 10px;
+      padding: 10px 14px;
+      cursor: pointer;
+      font-weight: 700;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      color: var(--primary-dark);
+      background: white;
+      font-size: 13px;
+    }
+
+    .btn.secondary {
+      background: rgba(255,255,255,0.16);
+      color: white;
+      border: 1px solid rgba(255,255,255,0.35);
+    }
+
+    .main {
+      flex: 1;
+      max-width: 1400px;
+      width: 100%;
+      margin: 0 auto;
+      padding: 18px;
+    }
+
+    .notice {
+      background: #ecfdf5;
+      border: 1px solid #a7f3d0;
+      color: #065f46;
+      padding: 12px 14px;
+      border-radius: 14px;
+      margin-bottom: 14px;
+      font-size: 14px;
+      display: none;
+    }
+
+    .frame-card {
+      background: var(--card);
+      border-radius: 18px;
+      box-shadow: var(--shadow);
+      overflow: hidden;
+      border: 1px solid rgba(15, 23, 42, 0.08);
+    }
+
+    .frame-header {
+      padding: 12px 14px;
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 10px;
+      flex-wrap: wrap;
+      background: #f8fafc;
+    }
+
+    .status {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    .dot {
+      width: 9px;
+      height: 9px;
+      border-radius: 50%;
+      background: #22c55e;
+      box-shadow: 0 0 0 4px rgba(34,197,94,0.12);
+    }
+
+    .mini-actions {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+
+    .mini-btn {
+      border: 1px solid var(--border);
+      background: white;
+      padding: 8px 11px;
+      border-radius: 9px;
+      cursor: pointer;
+      font-weight: 700;
+      font-size: 12px;
+      color: var(--text);
+    }
+
+    .iframe-wrap {
+      position: relative;
+      width: 100%;
+      height: calc(100vh - 170px);
+      min-height: 620px;
+      background: white;
+    }
+
+    iframe {
+      width: 100%;
+      height: 100%;
+      border: 0;
+      display: block;
+      background: white;
+    }
+
+    .fallback {
+      display: none;
+      padding: 26px;
+      text-align: center;
+      max-width: 720px;
+      margin: 0 auto;
+    }
+
+    .fallback h2 {
+      margin-top: 0;
+      color: var(--primary-dark);
+    }
+
+    .fallback p {
+      color: var(--muted);
+      line-height: 1.6;
+    }
+
+    .footer {
+      text-align: center;
+      padding: 14px 18px 22px;
+      color: var(--muted);
+      font-size: 12px;
+    }
+
+    @media (max-width: 768px) {
+      .topbar { padding: 14px; }
+      .brand-title h1 { font-size: 16px; }
+      .brand-title p { font-size: 12px; }
+      .actions { width: 100%; }
+      .btn { flex: 1; justify-content: center; }
+      .main { padding: 10px; }
+      .iframe-wrap {
+        height: calc(100vh - 205px);
+        min-height: 560px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="app-shell">
+    <header class="topbar">
+      <div class="topbar-inner">
+        <div class="brand">
+          <div class="logo">SI</div>
+          <div class="brand-title">
+            <h1>SI-HADIR Penyuluh</h1>
+            <p>Laporan Harian Kinerja Penyuluh Narkoba Ahli Madya</p>
+          </div>
+        </div>
+
+        <div class="actions">
+          <button class="btn secondary" onclick="refreshApp()">↻ Refresh</button>
+          <button class="btn secondary" onclick="toggleFullscreen()">⛶ Fullscreen</button>
+          <a class="btn" id="openOriginal" target="_blank" rel="noopener">Buka Aplikasi</a>
+        </div>
+      </div>
+    </header>
+
+    <main class="main">
+      <div class="notice" id="notice">
+        Aplikasi dimuat melalui halaman GitHub Pages. Jika tampilan tidak muncul, klik tombol “Buka Aplikasi”.
+      </div>
+
+      <section class="frame-card">
+        <div class="frame-header">
+          <div class="status">
+            <span class="dot"></span>
+            <span>Terhubung ke aplikasi laporan harian</span>
+          </div>
+
+          <div class="mini-actions">
+            <button class="mini-btn" onclick="refreshApp()">Muat Ulang</button>
+            <button class="mini-btn" onclick="showNotice()">Bantuan</button>
+          </div>
+        </div>
+
+        <div class="iframe-wrap" id="frameWrap">
+          <iframe
+            id="appFrame"
+            title="SI-HADIR Penyuluh"
+            allow="camera; microphone; geolocation; clipboard-read; clipboard-write"
+            loading="eager">
+          </iframe>
+
+          <div class="fallback" id="fallback">
+            <h2>Aplikasi belum dapat ditampilkan di halaman ini</h2>
+            <p>
+              Beberapa pengaturan browser atau akun Google dapat membatasi tampilan embed.
+              Gunakan tombol di bawah untuk membuka aplikasi langsung.
+            </p>
+            <p>
+              <a class="btn" id="fallbackOpen" target="_blank" rel="noopener">Buka Aplikasi Langsung</a>
+            </p>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="footer">
+      © 2026 SI-HADIR Penyuluh — Tri Tjahyono, S.Sos., M.Si.
+    </footer>
+  </div>
+
+  <script>
+    /*
+      CARA PAKAI:
+      1. Ganti URL di bawah ini dengan URL Web App Apps Script bro.
+      2. Gunakan URL yang berakhiran /exec, bukan /dev.
+      3. Upload file ini sebagai index.html ke GitHub Pages.
+    */
+
+    const WEB_APP_URL = 'https://script.google.com/macros/s/AKfycbx5Ss1T5DWHnyfPRtv73lWVHMcr-JoIDQ4_3DXfuy0HbRLLlCfW2WneM8Txq7Ez-zaWLw/exec';
+
+    const frame = document.getElementById('appFrame');
+    const openOriginal = document.getElementById('openOriginal');
+    const fallbackOpen = document.getElementById('fallbackOpen');
+    const fallback = document.getElementById('fallback');
+
+    function init() {
+      if (!WEB_APP_URL || WEB_APP_URL.includes('TEMPEL_URL')) {
+        document.getElementById('notice').style.display = 'block';
+        document.getElementById('notice').textContent =
+          'URL Web App belum diisi. Ganti WEB_APP_URL di file index.html dengan URL Apps Script bro.';
+        fallback.style.display = 'block';
+        return;
+      }
+
+      frame.src = WEB_APP_URL;
+      openOriginal.href = WEB_APP_URL;
+      fallbackOpen.href = WEB_APP_URL;
+
+      setTimeout(() => {
+        try {
+          if (!frame.src) fallback.style.display = 'block';
+        } catch (e) {
+          fallback.style.display = 'block';
+        }
+      }, 3000);
+    }
+
+    function refreshApp() {
+      if (WEB_APP_URL && !WEB_APP_URL.includes('TEMPEL_URL')) {
+        frame.src = WEB_APP_URL + (WEB_APP_URL.includes('?') ? '&' : '?') + 't=' + Date.now();
+      }
+    }
+
+    function toggleFullscreen() {
+      const elem = document.getElementById('frameWrap');
+
+      if (!document.fullscreenElement) {
+        elem.requestFullscreen?.();
+      } else {
+        document.exitFullscreen?.();
+      }
+    }
+
+    function showNotice() {
+      const notice = document.getElementById('notice');
+      notice.style.display = notice.style.display === 'block' ? 'none' : 'block';
+    }
+
+    init();
+  </script>
+</body>
+</html>
