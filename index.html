@@ -4,8 +4,8 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-  <title>SI-HADIR Penyuluh | Laporan Harian Kinerja</title>
-  <meta name="description" content="Sistem Informasi Harian Kinerja Penyuluh Narkoba Ahli Madya - Tri Tjahyono" />
+  <title>e-Kinerja Penyuluh | Laporan Harian Kinerja</title>
+  <meta name="description" content="Sistem Informasi Harian Kinerja Penyuluh Narkoba Ahli Madya" />
   <meta name="theme-color" content="#0f766e" />
 
   <style>
@@ -238,6 +238,13 @@
       }
     }
   </style>
+
+  <link rel="manifest" href="manifest.json" />
+  <link rel="apple-touch-icon" href="icon-192.png" />
+  <meta name="mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-title" content="SI-HADIR" />
+
 </head>
 
 <body>
@@ -247,7 +254,7 @@
         <div class="brand">
           <div class="logo">SI</div>
           <div class="brand-title">
-            <h1>SI-HADIR Penyuluh</h1>
+            <h1>e-Kinerja Penyuluh</h1>
             <p>Laporan Harian Kinerja Penyuluh Narkoba Ahli Madya</p>
           </div>
         </div>
@@ -281,7 +288,7 @@
         <div class="iframe-wrap" id="frameWrap">
           <iframe
             id="appFrame"
-            title="SI-HADIR Penyuluh"
+            title="e-Kinerja Penyuluh"
             allow="camera; microphone; geolocation; clipboard-read; clipboard-write"
             loading="eager">
           </iframe>
@@ -301,7 +308,7 @@
     </main>
 
     <footer class="footer">
-      © 2026 SI-HADIR Penyuluh — Tri Tjahyono, S.Sos., M.Si.
+      © 2026 e-Kinerja Penyuluh — Tri Tjahyono, S.Sos., M.Si.
     </footer>
   </div>
 
@@ -313,7 +320,7 @@
       3. Upload file ini sebagai index.html ke GitHub Pages.
     */
 
-    const WEB_APP_URL = 'https://script.google.com/macros/s/AKfycbx5Ss1T5DWHnyfPRtv73lWVHMcr-JoIDQ4_3DXfuy0HbRLLlCfW2WneM8Txq7Ez-zaWLw/exec';
+    const WEB_APP_URL = 'TEMPEL_URL_WEB_APP_APPS_SCRIPT_DI_SINI';
 
     const frame = document.getElementById('appFrame');
     const openOriginal = document.getElementById('openOriginal');
@@ -365,5 +372,32 @@
 
     init();
   </script>
+
+  <script>
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', function() {
+        navigator.serviceWorker.register('./service-worker.js')
+          .catch(function(err) {
+            console.log('Service Worker gagal:', err);
+          });
+      });
+    }
+  </script>
+
+<script>
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', () => {
+    navigator.serviceWorker
+      .register('./service-worker.js')
+      .then(reg => {
+        console.log('Service Worker berhasil:', reg.scope);
+      })
+      .catch(err => {
+        console.error('Service Worker gagal:', err);
+      });
+  });
+}
+</script>
+
 </body>
 </html>
